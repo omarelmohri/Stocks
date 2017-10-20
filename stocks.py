@@ -3,16 +3,48 @@ from yahoo_finance import Share
 from stocks.portfolio import Position
 import os
 
-os.system('clear')
-print('\033[93m='*100)
-print('%8s %5s %10s %10s %10s %10s %10s' % ('Stock'  , 'Qty' ,  'Unit cost'  , 'Total cost' ,  'Price'  ,  'Market Value'   ,  'Gain/Loss'))
-#Stock   Qty   Unit cost   Total cost   Price    Value     Gain/Loss')
-print('='*100, '\033[0m')  #=\033[0m
+def printLine(t1, t2, t3, t4, t5, t6, t7, t8):
+    print(str(t1).center(10,' '), end='')
+    print(str(t2).rjust(6,' '), end='')
+    print(str(t3).rjust(10,' '), end='')
+    print(str(t4).rjust(14,' '), end='')
+    print(str(t5).rjust(10,' '), end='')
+    print(str(t6).rjust(15,' '), end='')
+    try:
+        if float(t7)>0:
+            print('\033[32m', end='')
+            print(str(t7).rjust(12,' '), end='')
+            print('\033[0m', end='')
+        else:
+            print('\033[31m', end='')
+            print(str(t7).rjust(12,' '), end='')
+            print('\033[0m', end='')
+    except:
+        print(str(t7).rjust(12,' '), end='')
+    try:
+        if float(t8)>0:
+            print('\033[32m', end='')
+            print(str(t8).rjust(14,' '), end='')
+            print('\033[0m', end='')
+        else:
+            print('\033[31m', end='')
+            print(str(t8).rjust(14,' '), end='')
+            print('\033[0m', end='')
+    except:
+        print(str(t8).rjust(14,' '), end='')
+    print('\n', end='')
 
-filename = "data/portfolio.txt"
-txt = open(filename)
-#print(type(txt))
+raws, col = os.popen('stty size', 'r').read().split()
+col = int(col)
+os.system('clear')
+print('\033[93m='*col)
+printLine('Stock', 'Qty', 'U. cost', 'Total cost', 'Price', 'Market Value', 'Day G/L', 'Gain/Loss')
+print('='*(col-1), '\033[0m', end='')  #=\033[0m
+
+#Loading data from the file
+txt = open("data/portfolio.txt")
 rawdata = txt.read()
+txt.close()
 
 #loading the portfolio
 loadedPositons = []
@@ -21,27 +53,8 @@ for ligne in seperate:
     values = ligne.split(',') #take a ligne and read the values in it
     if len(values)==3:
         loadedPositons.append(Position(values[0],int(values[1]),float(values[2])))
-#        total_cost = float(values[1]) * float(values[2])
-#        ticker = str(values[0])
-#USE MULTIPLE ASSIGNEMENTS FOR LISTS
-#        stk = Share(ticker)
-#        price = float(stk.get_price())
-#        total_value = price * float(values[1])
-#        pcent_change = str(stk.get_percent_change())
-#        print('%8s %5i %10.2f %10.2f %10.2f %10.2f \033[32m%8s\033[0m' % (str(values[0]), int(values[1]), float(values[2]), total_cost, price, total_value, pcent_change))
-#print('\033[93m=\033[0m'*100)
-
 
 #Printing the vales
 for pt in loadedPositons:
-    #print ('%8s %5i %10.2f %10.2f %10.2f %10.2f %8f' % pt.ticker, pt.qty, pt.price, pt.totalCost(), pt.currentPrice(), pt.marketValue(), pt.positionGain())
-    print ('%8s %5i %10.2f %10.2f %10.2f %10.2f \033[32m%10.2f\033[0m' % (pt.ticker, pt.qty , pt.price, pt.totalCost(), pt.currentPrice(), pt.marketValue(), pt.positionGain()))
-
-print('\033[93m=\033[0m'*100)
-
-txt.close()
-
-
-
-def printLine():
-    pass
+    printLine(pt.ticker, pt.qty, '{:,.2f}'.format(pt.price),'{:,.2f}'.format(pt.totalCost()), '{:,.2f}'.format(pt.currentPrice()), '{:,.2f}'.format(pt.marketValue()), '{:+,.2f}'.format(pt.dayGain()), '{:+,.2f}'.format(pt.positionGain()))
+print('\033[93m=\033[0m'*col)
