@@ -31,6 +31,10 @@ class Position(object):
         diff = self.marketValue() - self.totalCost()
         return diff
 
+    def dayGain(self):
+        dg = self.qty * float(self.yPointer.get_change())
+        return dg
+
     def positionGainPercent(self):
         return (1 - self.totalCost()/self.marketValue())
 
