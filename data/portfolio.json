@@ -1,0 +1,52 @@
+[
+   {
+      "Stock": "NTNX",
+      "Qty": 150,
+      "Cost": 22.43
+   },
+   {
+      "Stock": "AAPL",
+      "Qty": 13,
+      "Cost": 152.81
+   },
+   {
+      "Stock": "APH.TO",
+      "Qty": 200,
+      "Cost": 6.3
+   },
+   {
+      "Stock": "SWKS",
+      "Qty": 7,
+      "Cost": 96
+   },
+   {
+      "Stock": "MSFT",
+      "Qty": 5,
+      "Cost": 67.8
+   },
+   {
+      "Stock": "BZUN",
+      "Qty": 35,
+      "Cost": 29.5
+   },
+   {
+      "Stock": "NMX.TO",
+      "Qty": 2000,
+      "Cost": 1.19
+   },
+   {
+      "Stock": "WEED.TO",
+      "Qty": 250,
+      "Cost": 9.1
+   },
+   {
+      "Stock": "CLDR",
+      "Qty": 160,
+      "Cost": 17.98
+   },
+   {
+      "Stock": "AAPL",
+      "Qty": 15,
+      "Cost": 151.01
+   }
+]

@@ -1,5 +1,5 @@
 from yahoo_finance import Share
-
+import json
 
 
 class Position(object):
@@ -32,7 +32,10 @@ class Position(object):
         return diff
 
     def dayGain(self):
-        dg = self.qty * float(self.yPointer.get_change())
+        try:
+            dg = self.qty * float(self.yPointer.get_change())
+        except:
+            dg = 0
         return dg
 
     def positionGainPercent(self):
